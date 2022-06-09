@@ -15,5 +15,6 @@ urlpatterns = [
     path('create_task', TaskCreate.as_view(), name='create_task'),
     path('update_task/<str:pk>/', TaskUpdate.as_view(), name='update_task'),
     path('delete_task/<str:pk>/', TaskDelete.as_view(), name='delete_task'),
+    path('task-reorder/', TaskReorder.as_view(), name='task-reorder'),
 
 ]

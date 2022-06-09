@@ -5,10 +5,14 @@
     <title>{{ task }}</title>
 </head>
 <body>
-<h2>{{ task }}</h2>
-<h2>{{ task.user.first_name }}</h2>
-<h2>{{ task.completed }}</h2>
-<h2>{{ task.description }}</h2>
-<h2>{{ task.created_at }}</h2>
+<h1>Task: {{ task }}</h1>
+<h4>user: {{ task.user.username }}</h4>
+<h4>is it completed: {{ task.completed }}</h4>
+<h4>description: {{ task.description }}</h4>
+<h4>date: {{ task.created_at }}</h4>
+<br>
+<a href="{% url 'update_task' task.pk %}">Update Task</a>
+<a href="{% url 'delete_task' task.pk %}">Delete Task</a>
+
 </body>
 </html>
