@@ -8,6 +8,8 @@
 <h4><a href="{% url 'create_task' %}">>>> Create Task <<<</a></h4>
 {% for task in tasks %}
     <a href="{% url 'task' task.pk %}">{{ task }}</a><br>
+    <a href="{% url 'update_task' task.pk %}">update</a><br>
+    <br>
 {% empty %}
     <h3>NO task Huraa...</h3>
 {% endfor %}

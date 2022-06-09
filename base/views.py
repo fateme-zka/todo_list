@@ -22,5 +22,14 @@ class TaskDetail(DetailView):
 
 class TaskCreate(CreateView):
     model = Task
-    form_class =TaskForm
+    form_class = TaskForm
     success_url = reverse_lazy('tasks')
+
+
+class TaskUpdate(UpdateView):
+    model = Task
+    form_class = TaskForm
+
+    def get_success_url(self):
+        pk = self.object.pk
+        return reverse_lazy('task', kwargs={'pk': pk})
