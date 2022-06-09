@@ -9,6 +9,7 @@
 {% for task in tasks %}
     <a href="{% url 'task' task.pk %}">{{ task }}</a><br>
     <a href="{% url 'update_task' task.pk %}">update</a><br>
+    <a href="{% url 'delete_task' task.pk %}">delete</a><br>
     <br>
 {% empty %}
     <h3>NO task Huraa...</h3>

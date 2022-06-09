@@ -33,3 +33,9 @@ class TaskUpdate(UpdateView):
     def get_success_url(self):
         pk = self.object.pk
         return reverse_lazy('task', kwargs={'pk': pk})
+
+
+class TaskDelete(DeleteView):
+    model = Task
+    context_object_name = 'task'
+    success_url = reverse_lazy('tasks')
