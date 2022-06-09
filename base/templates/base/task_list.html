@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task list</title>
+</head>
+<body>
+<h4><a href="{% url 'create_task' %}">>>> Create Task <<<</a></h4>
+{% for task in tasks %}
+    <a href="{% url 'task' task.pk %}">{{ task }}</a><br>
+{% empty %}
+    <h3>NO task Huraa...</h3>
+{% endfor %}
+
+</body>
+</html>
