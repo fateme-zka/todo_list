@@ -1,7 +1,14 @@
 from django.urls import path
+from django.contrib.auth.views import LoginView
+
 from .views import *
 
 urlpatterns = [
+    # authentication urls
+    path('login/', Login.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+
+    # CRUD urls
     path('', TaskList.as_view(), name='tasks'),
     path('task/<str:pk>/', TaskDetail.as_view(), name='task'),
     path('create_task', TaskCreate.as_view(), name='create_task'),
