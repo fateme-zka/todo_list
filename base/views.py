@@ -28,19 +28,27 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'  # it was task_list
     queryset = Task.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super(TaskList, self).get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(completed=False).count()
+        return context
+
 
 class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'  # it was object
-
-    def get_queryset(self):
-        return self.filter(user=request.user)
 
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
+
+    # to set a request user for the task that he/she creates
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
 
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
