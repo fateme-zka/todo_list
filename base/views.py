@@ -1,10 +1,14 @@
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import (ListView,
                                   DetailView,
                                   CreateView,
                                   UpdateView,
-                                  DeleteView)
+                                  DeleteView,
+                                  FormView)
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Task
@@ -20,6 +24,24 @@ class Login(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('tasks')
+
+
+class Register(FormView):
+    template_name = 'base/register.html'
+    form_class = UserCreationForm  # this is built-in form for creating django default User
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('tasks')
+
+    def form_valid(self, form):
+        user = form.save()  # as the form is saved it return that user (which we created by the form)
+        if user is not None:
+            login(self.request, user)  # as the user created it will login as created user
+        return super(Register, self).form_valid(form)
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('tasks')
+        return super(Register, self).get(*args, **kwargs)
 
 
 # CRUD operations

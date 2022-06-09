@@ -7,6 +7,7 @@ urlpatterns = [
     # authentication urls
     path('login/', Login.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('register/', Register.as_view(), name='register'),
 
     # CRUD urls
     path('', TaskList.as_view(), name='tasks'),
